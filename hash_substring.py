@@ -1,23 +1,28 @@
-# python3
 import sys
+import os
 import random
 
 def read_input():
-    choice = input().rstrip()
+    choice = sys.stdin.readline().rstrip()
     if choice == "F":
-        fails = input("Enter the file name: ")
+        fails = sys.stdin.readline().rstrip()
         atrasanas = './tests/'
         faila_vieta = os.path.join(atrasanas, fails)
-        with open(faila_vieta, mode="r") as file:
-            n = int(file.readline())
-            data = list(map(int, file.readline().split()))
-       # with open('./tests/', mode="r") as file:
-        #    pattern = file.readline().rstrip()
-         #   text = file.readline().rstrip()
+        try:
+            with open(faila_vieta, mode="r") as file:
+                n = int(file.readline())
+                data = list(map(int, file.readline().split()))
+        except FileNotFoundError:
+            print("File not found.")
+            sys.exit()
+        except ValueError:
+            print("Invalid input format.")
+            sys.exit()
+        return (data[0], data[1])
     else:
-        pattern = input().rstrip()
-        text = input().rstrip()
-    return (pattern, text)
+        pattern = sys.stdin.readline().rstrip()
+        text = sys.stdin.readline().rstrip()
+        return (pattern, text)
 
 def print_occurrences(output):
     print(' '.join(map(str, output)))
@@ -29,22 +34,22 @@ def poly_hash(s, prime, x):
     return ans
 
 def precompute_hashes(text, pattern_len, prime, x):
-    H = [0] * (len(text) - pattern_len + 1)
-    s = text[-pattern_len:]
-    H[-1] = poly_hash(s, prime, x)
+    hashes = [0] * (len(text) - pattern_len + 1)
+    substring = text[-pattern_len:]
+    hashes[-1] = poly_hash(substring, prime, x)
     y = 1
     for _ in range(pattern_len):
         y = (y * x) % prime
     for i in reversed(range(len(text) - pattern_len)):
-        H[i] = (x * H[i + 1] + ord(text[i]) - y * ord(text[i + pattern_len])) % prime
-    return H
+        hashes[i] = (x * hashes[i + 1] + (text[i] - y * text[i + pattern_len])) % prime
+    return hashes
 
 def rabin_karp(pattern, text):
     prime = 1000000007
     x = random.randint(1, prime - 1)
     pattern_hash = poly_hash(pattern, prime, x)
-    H = precompute_hashes(text, len(pattern), prime, x)
-    return [i for i in range(len(text) - len(pattern) + 1) if pattern_hash == H[i] and text[i:i + len(pattern)] == pattern]
+    hashes = precompute_hashes(text, len(pattern), prime, x)
+    return [i for i in range(len(text) - len(pattern) + 1) if pattern_hash == hashes[i] and text[i:i + len(pattern)] == pattern]
 
 def get_occurrences(pattern, text):
     return rabin_karp(pattern, text)
