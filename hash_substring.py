@@ -5,9 +5,15 @@ import random
 def read_input():
     choice = input().rstrip()
     if choice == "F":
-        with open('./tests/', mode="r") as file:
-            pattern = file.readline().rstrip()
-            text = file.readline().rstrip()
+        fails = input("Enter the file name: ")
+        atrasanas = './tests/'
+        faila_vieta = os.path.join(atrasanas, fails)
+        with open(faila_vieta, mode="r") as file:
+            n = int(file.readline())
+            data = list(map(int, file.readline().split()))
+       # with open('./tests/', mode="r") as file:
+        #    pattern = file.readline().rstrip()
+         #   text = file.readline().rstrip()
     else:
         pattern = input().rstrip()
         text = input().rstrip()
