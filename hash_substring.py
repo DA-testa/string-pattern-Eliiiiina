@@ -5,7 +5,7 @@ import random
 def read_input():
     choice = input().rstrip()
     if choice == "F":
-        with open("tests.txt", "r") as file:
+        with open("tests", "r") as file:
             pattern = file.readline().rstrip()
             text = file.readline().rstrip()
     else:
