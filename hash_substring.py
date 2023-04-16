@@ -5,7 +5,7 @@ import random
 def read_input():
     choice = input().rstrip()
     if choice == "F":
-        with open("/.tests", "r") as file:
+        with open("/.tests/", "r") as file:
             pattern = file.readline().rstrip()
             text = file.readline().rstrip()
     else:
@@ -34,9 +34,6 @@ def precompute_hashes(text, pattern_len, prime, x):
     return H
 
 def rabin_karp(pattern, text):
-    if len(pattern) > len(text):
-        return []
-
     prime = 1000000007
     x = random.randint(1, prime - 1)
     pattern_hash = poly_hash(pattern, prime, x)
