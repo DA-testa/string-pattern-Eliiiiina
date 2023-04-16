@@ -1,24 +1,22 @@
-# python3
+import os
 
 def read_input():
-    # this function acquires input from both keyboard and file
-    input_type = input().rstrip()
+    input_type = input().strip().upper()
     if input_type == 'I':
-        pattern = input().rstrip()
-        text = input().rstrip()
+        pattern = input().strip()
+        text = input().strip()
     elif input_type == 'F':
-        filename = input().rstrip()
-        with open(filename, 'r') as f:
-            pattern = f.readline().rstrip()
-            text = f.readline().rstrip()
+        filename = input("Enter the file name: ")
+        file_path = os.path.join('./tests', filename)
+        with open(file_path, 'r') as f:
+            pattern = f.readline().strip()
+            text = f.readline().strip()
     return pattern, text
 
 def print_occurrences(output):
-    # this function controls output, it doesn't need any return
     print(' '.join(map(str, output)))
 
 def get_occurrences(pattern, text):
-    # Rabin Karp algorithm for finding the occurrences of the pattern in the text
     p = 1000000007
     x = 263
     m = len(pattern)
