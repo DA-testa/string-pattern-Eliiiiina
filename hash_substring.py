@@ -1,11 +1,11 @@
 import os
 
 def read_input():
-    input_type = input().strip().upper()
-    if input_type == 'I':
+    input_choice = input().strip().upper()
+    if input_choice == 'I':
         pattern = input().strip()
         text = input().strip()
-    elif input_type == 'F':
+    elif input_choice == 'F':
         filename = input("Enter the file name: ")
         file_path = os.path.join('./tests', filename)
         with open(file_path, 'r') as f:
