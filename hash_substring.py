@@ -6,8 +6,11 @@ def read_input():
     choice = input().rstrip()
     if choice == "F":
         with open("/.tests/06", "r") as file:
-            pattern = file.readline().rstrip()
-            text = file.readline().rstrip()
+            lines= file.readlines()
+            pattern=lines[0].rstrip()
+            text=lines[1].rstriP()
+            #pattern = file.readline().rstrip()
+            #text = file.readline().rstrip()
     else:
         pattern = input().rstrip()
         text = input().rstrip()
