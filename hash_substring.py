@@ -1,7 +1,6 @@
 # python3
 import sys
 import random
-
 def read_input():
     choice = input().strip().upper()
     if choice == "F":
