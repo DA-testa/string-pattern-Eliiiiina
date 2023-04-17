@@ -1,4 +1,5 @@
 # python3
+#Elīna Miltiņa 18.grupa 221RDC017
 import sys
 import random
 def read_input():
