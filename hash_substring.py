@@ -2,16 +2,24 @@
 import sys
 import random
 
-def read_input():
-    choice = input().rstrip()
-    if choice == "F":
-        with open('/.tests/06', 'r') as file:
-            pattern = file.readline().rstrip()
-            text = file.readline().rstrip()
-    else:
-        pattern = input().rstrip()
-        text = input().rstrip()
-    return (pattern, text)
+def main():
+    while True:
+        choice = input("Do you want to enter input or read from a file? (I/F)").strip().upper()
+        if choice == "I":
+            text = input("Enter brackets: ")
+            break
+        elif choice == "F":
+            filename = input("Enter filename: ")
+            if os.path.exists(filename):
+                with open(filename) as f:
+                    text = f.read()
+                break
+            else:
+                print("File does not exist. Please try again.")
+        else:
+            print("Invalid choice. Please try again.")
+    mismatch = find_mismatch(text)
+    print(mismatch)
 
 def print_occurrences(output):
     print(' '.join(map(str, output)))
